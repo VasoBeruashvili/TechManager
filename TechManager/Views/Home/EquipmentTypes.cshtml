@@ -1,0 +1,42 @@
+﻿@{Layout = "~/Views/Shared/_LayoutAdmin.cshtml";}
+
+<!--Layout Start-->
+<div id="containerEquipmentTypes" class="container-fluid" ng-controller="EquipmentTypesController" data-ng-init="init()" style="height: 100%;">
+    <form class="form-inline">
+        <a class="btn btn-sm btn-primary" ng-click="OpenEquipmentTypesModal('დამატება')"><i class="fa fa-plus-circle"></i> დამატება</a>
+
+        <div class="input-group input-group-sm" style="float: right;">
+            <span class="input-group-addon"><i class="fa fa-search"></i> ძებნა:</span>
+            <input class="form-control input-sm clearable" type="text" ng-model="gridOptions.quickFilterText" autofocus style="width: 200px;" />
+        </div>
+    </form>
+
+    <div style="height: 100%;">
+        <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+    </div>    
+</div>
+<!--Layout End-->
+
+
+
+<!--EquipmentType Modal Start-->
+<script type="text/ng-template" id="EquipmentTypeModal.html">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()">&times;</a>
+        <h4 class="modal-title">აპარატის ტიპის {{title}}</h4>
+    </div>
+
+    <div class="modal-body" data-ng-init="init()">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-laptop"></i> აპარატის ტიპის დასახელება:</span>
+            <input id="txtEquipmentTypeName" class="form-control input-sm clearable" type="text" autofocus ng-model="Name" />
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        <a class="btn btn-sm btn-danger" ng-click="Save(true)" style="float: left;" ng-show="showDeleteButton"><i class="fa fa-trash"></i> წაშლა</a>
+        <a class="btn btn-sm btn-primary" ng-click="Save(false)"><i class="fa fa-save"></i> შენახვა</a>
+        <a class="btn btn-sm btn-default" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+    </div>
+</script>
+<!--EquipmentType Modal End-->

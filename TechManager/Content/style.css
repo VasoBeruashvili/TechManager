@@ -1,0 +1,324 @@
+﻿html{
+    height: 100%;
+}
+
+body {
+    background-color: #f7f7f7;
+    height: 100%;
+}
+
+*:focus { outline: none !important; }
+
+ul li:hover{
+    cursor: pointer;
+}
+
+.shadowed{
+    -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+    position: relative;
+}
+
+
+
+/* AngularGrid custom styles */
+.ag-header-cell{
+    background-color: #fff !important;
+}
+
+.ag-header-cell:hover{
+    background-color: #EAEFF4 !important;
+}
+
+.ag-header-cell-label{
+    text-overflow: clip !important;
+}
+
+/*.ag-cell{
+    overflow: visible;
+}*/
+
+.ag-fresh .ag-cell-no-focus{
+    border-right: 1px solid #dedede !important;
+    border-top: 1px solid transparent !important; 
+    border-left: 1px solid transparent !important; 
+    border-bottom: 1px solid transparent !important; 
+}
+
+.ag-fresh .ag-cell-focus{
+    outline: 0;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+}
+
+.ag-fresh .ag-filter-header-container{
+    border-bottom: none !important;
+    background-color: #EAEFF4 !important;
+}
+
+.ag-filter-list-container{
+    background-color: #fff;
+}
+
+.ag-filter-value{
+    font-weight: normal;
+}
+
+label{
+    font-weight: normal;
+}
+
+.ag-fresh .ag-filter{
+    border: 1px solid #bebebe !important;
+}
+
+.ag-root{
+    border: 1px solid #bebebe !important;
+}
+
+.ag-loading-center{
+    background-color: #fdfdfd !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.ag-fresh .ag-header-cell-menu-button{
+    border-radius: 0 !important;
+    margin-right: 0 !important;
+}
+
+.ag-fresh .ag-header-cell-menu-button:hover{
+    border: 1px solid #bebebe !important;
+    cursor: pointer;
+}
+
+.ag-filter{
+    -webkit-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75) !important;
+    box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75) !important;
+}
+
+.ag-fresh .ag-header-cell{
+    border-right: 1px solid #bebebe !important;
+    border-bottom: 1px solid #bebebe !important;
+}
+
+.ag-fresh .ag-header-cell-label{
+    padding: 1px 2px 4px 2px !important;
+}
+
+.ag-filter-filter{
+    outline: 0;
+}
+/* --- */
+
+
+
+/* Bootstrap custom styles */
+.list-group-item{
+    cursor: pointer;
+}
+/* --- */
+
+
+
+/* AngularJS Animations */
+.slider {
+    z-index: 1000;
+    position: fixed;
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+    
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(100%); }
+}
+
+.fadeout {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.ng-hide-remove,
+.fadeout.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+    display: block !important;
+}
+
+.fadeout.ng-hide-add,
+.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+    display: block !important;
+}
+
+
+
+/******** separator ********/
+
+
+
+.slider1 {
+    z-index: 1000;
+    position: fixed;
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+}
+
+.slide-in1 {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out1 {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in1 {
+    100% { transform: translateY(0%); }
+}
+
+@-webkit-keyframes slide-in1 {
+    100% { -webkit-transform: translateY(0%); }
+}
+    
+@keyframes slide-out1 {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(100%); }
+}
+
+@-webkit-keyframes slide-out1 {
+    0% { -webkit-transform: translateY(0%); }
+    100% { -webkit-transform: translateY(100%); }
+}
+
+
+
+/******** separator ********/
+
+
+
+.slider2 {
+    z-index: 1000;
+    position: fixed;
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+}
+
+.slide-in2 {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out2 {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in2 {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in2 {
+    100% { -webkit-transform: translateX(0%); }
+}
+    
+@keyframes slide-out1 {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+}
+
+@-webkit-keyframes slide-out2 {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(100%); }
+}
+/* --- */
+
+
+
+
+
+
+/* Total center */
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* --- */
+
+
+.dropdown-menu{
+    font-size: 18px !important;
+}
+
+.dropdown-menu>li>a{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.multiSelect .multiSelectItem{
+    font-size: 18px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}

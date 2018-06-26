@@ -1,0 +1,181 @@
+﻿@{Layout = "~/Views/Shared/_LayoutAdmin.cshtml";}
+
+<!--Layout Start-->
+<div id="containerActions" class="container-fluid" ng-controller="ActionsController" data-ng-init="init()" style="height: 100%;">
+    <form class="form-inline">
+        <a class="btn btn-sm btn-primary" ng-click="OpenActionsModal('დამატება')"><i class="fa fa-plus-circle"></i> დამატება</a>
+
+        <div class="input-group input-group-sm" style="float: right;">
+            <span class="input-group-addon"><i class="fa fa-search"></i> ძებნა:</span>
+            <input class="form-control input-sm clearable" type="text" ng-model="gridOptions.quickFilterText" autofocus style="width: 200px;" />
+        </div>
+    </form>
+
+    <div style="height: 100%;">
+        <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+    </div>
+</div>
+<!--Layout End-->
+
+
+
+<!--Action Modal Start-->
+<script type="text/ng-template" id="ActionModal.html">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()">&times;</a>
+        <h4 class="modal-title">მოქმედების {{title}}</h4>
+    </div>
+
+    <div class="modal-body" data-ng-init="init()">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-object-group"></i> მოქმედების დასახელება:</span>
+            <input id="txtActionName" class="form-control input-sm clearable" type="text" autofocus ng-model="Name" />
+        </div>
+        <br />
+        <div class="btn-group" dropdown is-open="status.isopen" style="width: 100%;">
+            <button id="single-button" style="width: 100%; text-align: left;" type="button" class="btn btn-sm btn-default" dropdown-toggle ng-disabled="disabled">
+                {{selectedActionType}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" style="width: 100%;">
+                <li ng-repeat="actionType in actionTypes" role="menuitem" ng-click="selectActionType($index)"><a>{{actionType}}</a></li>
+            </ul>
+        </div>
+        <br />
+        <br />
+        <label>            
+            <input type="checkbox" ng-model="isHidden" />
+            დაიმალოს
+        </label>
+        <br />
+        <br />
+        <tabset class="small">
+            <tab>
+                <tab-heading>
+                    <i class="fa fa-list-ol"></i> კატეგორიები
+                </tab-heading>
+                <form class="form-inline" style="margin-top: 15px;">
+                    <a class="btn btn-sm btn-primary" ng-click="OpenActionItemsModal('დამატება')"><i class="fa fa-plus-circle"></i> დამატება</a>
+
+                    <div class="input-group input-group-sm" style="float: right;">
+                        <span class="input-group-addon"><i class="fa fa-search"></i> ძებნა:</span>
+                        <input class="form-control input-sm clearable" type="text" ng-model="gridOptions.quickFilterText" autofocus style="width: 200px;" />
+                    </div>
+                </form>
+
+                <div style="height: 300px;">
+                    <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    
+    <div class="modal-footer">
+        <a class="btn btn-sm btn-danger" ng-click="Save(true)" style="float: left;" ng-show="showDeleteButton"><i class="fa fa-trash"></i> წაშლა</a>
+        <a class="btn btn-sm btn-primary" ng-click="Save(false)"><i class="fa fa-save"></i> შენახვა</a>
+        <a class="btn btn-sm btn-default" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+    </div>
+</script>
+<!--Action Modal End-->
+
+
+
+<!--Action Item Modal Start-->
+<script type="text/ng-template" id="ActionItemModal.html">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()">&times;</a>
+        <h4 class="modal-title">კატეგორიის {{title}}</h4>
+    </div>
+
+    <div class="modal-body" data-ng-init="init()">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-object-group"></i> კატეგორიის დასახელება:</span>
+            <input id="txtActionItemName" class="form-control input-sm clearable" type="text" autofocus ng-model="Name" />
+        </div>
+
+        <br />
+        <label>
+            <input type="checkbox" ng-model="isHidden" />
+            დაიმალოს
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" ng-model="hasSerial" />
+            სერიული
+        </label>
+        <br />
+
+        <a class="btn btn-sm btn-primary" style="margin-top: 15px;" ng-click="OpenSubActionItemsModal('დამატება')"><i class="fa fa-plus-circle"></i> დამატება</a>
+
+        <div style="height: 350px;">
+            <div ag-grid="gridOptionsSub" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a class="btn btn-sm btn-danger" ng-click="Save(true, true)" style="float: left;" ng-show="showDeleteButton"><i class="fa fa-trash"></i> წაშლა</a>
+        <a class="btn btn-sm btn-primary" ng-click="Save(true, false)"><i class="fa fa-save"></i> შენახვა</a>
+        <a class="btn btn-sm btn-default" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+    </div>
+</script>
+<!--Action Item Modal End-->
+
+
+
+<!--Sub Action Item Modal Start-->
+<script type="text/ng-template" id="SubActionItemModal.html">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()">&times;</a>
+        <h4 class="modal-title">ქვე-კატეგორიის {{title}}</h4>
+    </div>
+
+    <div class="modal-body" data-ng-init="init()">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-object-group"></i> ქვე-კატეგორიის დასახელება:</span>
+            <input id="txtSubActionItemName" class="form-control input-sm clearable" type="text" ng-readonly="readOnlyName" autofocus ng-model="name" />
+        </div>
+        <br />
+        <label>
+            <input type="checkbox" ng-model="isHidden" />
+            დაიმალოს
+        </label>
+    </div>
+
+    <div class="modal-footer">
+        <a class="btn btn-sm btn-danger" ng-click="Save(true, true)" style="float: left;" ng-show="showDeleteButton"><i class="fa fa-trash"></i> წაშლა</a>
+        <a class="btn btn-sm btn-primary" ng-click="Save(true, false)"><i class="fa fa-save"></i> შენახვა</a>
+        <a class="btn btn-sm btn-default" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+    </div>
+</script>
+<!--Sub Action Item Modal End-->
+
+
+
+<!--Product Modal Start-->
+<script type="text/ng-template" id="ProductModal.html">
+    <div class="modal-header">
+        <a class="close" ng-click="Cancel()">&times;</a>
+        <h4 class="modal-title">საქონლის {{title}}</h4>
+    </div>
+
+    <div class="modal-body" data-ng-init="init()">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-search"></i> ძებნა:</span>
+            <input class="form-control input-sm clearable" type="text" ng-model="gridOptions.quickFilterText" autofocus style="width: 100%;" />
+        </div>
+        <br />
+        <label>
+            <input type="checkbox" ng-model="isHidden" />
+            დაიმალოს
+        </label>
+        <br />
+        <div style="height: 350px;">
+            <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a class="btn btn-sm btn-primary" ng-click="Save(true)"><i class="fa fa-save"></i> შენახვა</a>
+        <a class="btn btn-sm btn-default" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+    </div>
+</script>
+<!--Product Modal End-->

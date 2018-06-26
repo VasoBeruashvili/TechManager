@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginStyles.css" rel="stylesheet" />
+    <title>Tech Manager</title>
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top topFixedNavbar topFixedNavbarShadow">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="margin-top: -10px;"><img src="../../Content/Resources/EGT-logo-wt.png" height="40" /></a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="phone">Euro Games Technology Georgia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="outer" style="margin-top: -150px;">
+        <div class="middle">
+            <div class="inner">
+                <div id="reg_form">
+                    <form action="/Account/Login" method="post">
+                        @Html.Hidden("returnUrl", this.Request.RawUrl)
+                        <table id="regtable">
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label for="code" style="color: #222; font-weight: normal;">შესვლის სახელი:</label>
+                                </td>
+                                <td>
+                                    <input name="Code" id="code" type="text" style="width: 145px; margin-left: 5px;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label for="password" style="color: #222; font-weight: normal;">პაროლი:</label>
+                                </td>
+                                <td>
+                                    <input name="Password" id="password" type="password" style="width: 145px; margin-left: 5px;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="text-align: right; padding-top:5px;">
+                                    <input type="submit" name="submit" value="შესვლა" formaction="/Account/Login" id="loginbtn" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <span style="color: red; font-size: small">@ViewBag.ValidateUserMessage &nbsp;</span>
+
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pageFooter">
+        <div class="container">
+            <span style="float: right;">&copy;2016 Developed by FINA Ltd</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+﻿@{Layout = "~/Views/Shared/_LayoutEngineer.cshtml";}
+
+<!--Layout Start-->
+<div id="containerVisits" class="container-fluid" ng-controller="VisitsController" data-ng-init="init()" style="height: 100%;">
+    <!--Loader Start-->
+    <div class="slider2 slide-in2 fadeout" ng-show="ShowLoader" ng-animate="slide" style="background-color: #fff;">
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
+                    <center>
+                        <img src="~/Content/Resources/preloader.gif" />
+                        <img src="~/Content/Resources/EGT-logo-wt.png" style="width: 115px; height: 55px;" />
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Loader End-->
+
+    <form class="form-inline">
+        <a href="/Home/VisitRegistration" class="btn btn-md btn-primary"><i class="fa fa-plus-circle"></i> ვიზიტის რეგისტრაცია</a>
+
+        <div class="input-group" style="margin-left: 25px;">
+            <span class="input-group-addon">პერიოდი:</span>
+            <input ng-click="openFromDatepicker($event)" type="text" class="form-control" datepicker-options="dateOptions" datepicker-popup="yyyy-MM-dd" ng-model="date_from" is-open="from_opened" on-open-focus="false" close-text="დახურვა" clear-text="გასუფთავება" current-text="დღეს">
+            <div class="input-group-btn" dropdown>
+                <button type="button" id="single-button" style="margin: 0 4px 0 4px;" class="btn btn-default" dropdown-toggle tabindex="-1">
+                    <i class="fa fa-calendar"></i>
+                </button>
+                <ul class="dropdown-menu choices" role="menu" aria-labelledby="single-button">
+                    <li role="menuitem"><a ng-click="menuChoiceClick('today')">დღეს</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('year')">მიმდინარე წელიწადი</a></li>
+                    <li role="menuitem" class="divider"></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('kvartali1')">I კვარტალი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('kvartali2')">II კვარტალი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('kvartali3')">III კვარტალი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('kvartali4')">IV კვარტალი</a></li>
+                    <li role="menuitem" class="divider"></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('yan')">01 - იანვარი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('feb')">02 - თებერვალი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('mar')">03 - მარტი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('apr')">04 - აპრილი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('may')">05 - მაისი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('jun')">06 - ივნისი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('jul')">07 - ივლისი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('aug')">08 - აგვისტო</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('sep')">09 - სექტემბერი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('oct')">10 - ოქტომბერი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('nov')">11 - ნოემბერი</a></li>
+                    <li role="menuitem"><a ng-click="menuChoiceClick('dec')">12 - დეკემბერი</a></li>
+                </ul>
+            </div>
+            <input ng-click="openToDatepicker($event)" type="text" class="form-control" datepicker-options="dateOptions" datepicker-popup="yyyy-MM-dd" ng-model="date_to" is-open="to_opened" on-open-focus="false" close-text="დახურვა" clear-text="გასუფთავება" current-text="დღეს">
+        </div>
+
+        <a class="btn btn-default" ng-click="GetVisits()" title="განახლება" style="margin-right: 15px;"><i class="fa fa-refresh"></i></a>        
+
+        <div class="input-group input-group-md" style="float: right;">
+            <span class="input-group-addon"><i class="fa fa-search"></i> ძებნა:</span>
+            <input class="form-control input-md" type="text" ng-model="gridOptions.quickFilterText" style="width: 250px;" />
+            @*<input class="form-control input-md" type="text" ng-model="visitObj" style="width: 250px;" />*@
+        </div>
+
+        <a class="btn btn-default" ng-click="OpenAdvancedSearch()" title="ვიზიტში ძებნა" style="float: right; margin-right: 5px;"><i class="fa fa-search-plus"></i></a>
+    </form>
+
+    <div style="height: 100%;">
+        <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%; width: 100%; margin-top: 5px; margin-bottom: 10px;"></div>
+        @*<div style="height: 100%; width: 100%; margin-top: 10px; overflow-y: auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped" style="width: 1800px !important;">
+                    <thead>
+                        <tr style="height: 50px !important;">
+                            <th style="width: 150px;">გაფორმების თარიღი</th>
+                            <th>ID</th>
+                            <th style="width: 150px;">კომპანია</th>
+                            <th style="width: 150px;">კაზინო</th>
+                            <th style="width: 150px;">დასრულების თარიღი</th>
+                            <th style="width: 150px;">სტატუსი</th>
+                            <th>საქონელი</th>
+                            <th>მრიცხველი</th>
+                            <th style="width: 150px;">ტექნიკოსი</th>
+                            <th style="width: 800px;">ვიზიტის კომენტარი</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="visit in visits | filter: visitObj" style="cursor: pointer;" ng-click="GetVisit(visit)">
+                            <td>{{visit.VisitDate}}</td>
+                            <td>{{visit.ID}}</td>
+                            <td>{{visit.ContragentName}}</td>
+                            <td>{{visit.SubContragentName}}</td>
+                            <td>{{visit.VisitDate2}}</td>
+                            <td>{{visit.StatusName}}</td>
+                            <td>{{visit.hasProductList}}</td>
+                            <td>{{visit.hasProtocol}}</td>
+                            <td>{{visit.CreatorUserFullName}}</td>
+                            <td><textarea rows="1" class="form-control" style="resize: vertical;" readonly>{{visit.Comment}}</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>*@
+    </div>
+
+    <!--Search In Visit Modal Start-->
+    <script type="text/ng-template" id="SearchInVisitModal.html">
+        <div class="modal-header">
+            <a class="close" ng-click="Cancel()">&times;</a>
+            <h4 class="modal-title">ვიზიტში ძებნა</h4>
+        </div>
+
+        <div class="modal-body">
+            <input type="text" class="input-md form-control" placeholder="ვიზიტში ძებნა..." ng-model="searchText" />
+            <br />
+            <input type="text" class="input-md form-control" placeholder="ხელმომწერის სახელი ან/და გვარი" ng-model="signatureOwner" />
+            <br />
+            <input type="text" class="input-md form-control" placeholder="მრიცხველში ძებნა..." ng-model="protocolText" />
+            <br />
+            <input type="text" class="input-md form-control" placeholder="მოქმედების კომენტარში ძებნა..." ng-model="actionCommentText" />
+            <br />
+            <input type="text" class="input-md form-control" placeholder="სასაქონლო სიაში ძებნა..." ng-model="searchInProductList" />
+            <br />
+            
+            სტატუსი
+            <div style="border: 1px solid #d4d4d4; padding: 10px;">
+                <div style="border: 1px solid #d4d4d4; padding: 10px; margin-bottom: 10px;">
+                    <label>
+                        <input type="checkbox" ng-model="asPerContract" ng-disabled="blockControl" ng-change="ValidateCheckBoxes1()" />
+                        ხელშეკრულებით
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="rent" ng-disabled="blockControl" ng-change="ValidateCheckBoxes1()" />
+                        იჯარა
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="sales" ng-disabled="blockControl" ng-change="ValidateCheckBoxes1()" />
+                        გაყიდული
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="other1" ng-disabled="blockControl" ng-change="ValidateCheckBoxes1()" />
+                        სხვა
+                    </label>
+                </div>
+                <div style="border: 1px solid #d4d4d4; padding: 10px; margin-bottom: 10px;">
+                    <label>
+                        <input type="checkbox" ng-model="inOffice" ng-disabled="blockControl" ng-change="ValidateCheckBoxes2()" />
+                        ოფისში
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="onSite" ng-disabled="blockControl" ng-change="ValidateCheckBoxes2()" />
+                        კლიენტთან
+                    </label>
+                </div>
+                <div style="border: 1px solid #d4d4d4; padding: 10px;">
+                    <label>
+                        <input type="checkbox" ng-model="warranty" ng-disabled="blockControl" ng-change="ValidateCheckBoxes3()" />
+                        გარანტია
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="postWarranty" ng-disabled="blockControl" ng-change="ValidateCheckBoxes3()" />
+                        გარანტიის შემდგომ
+                    </label>
+                    <br />
+                    <label>
+                        <input type="checkbox" ng-model="other2" ng-disabled="blockControl" ng-change="ValidateCheckBoxes3()" />
+                        სხვა
+                    </label>
+                </div>
+            </div>
+            <br />
+            გადახდა
+            <div style="border: 1px solid #d4d4d4; padding: 10px;">
+                <label>
+                    <input type="checkbox" ng-model="toAccount" ng-disabled="blockControl" ng-change="ValidateCheckBoxes4()" />
+                    საბანკო გადარიცხვა
+                </label>
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="paymentOnDelivery" ng-disabled="blockControl" ng-change="ValidateCheckBoxes4()" />
+                    გადახდა მიღებისას
+                </label>
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="paid" ng-disabled="blockControl" ng-change="ValidateCheckBoxes4()" />
+                    გადახდილია
+                </label>
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="warrantyPay" ng-disabled="blockControl" ng-change="ValidateCheckBoxes4()" />
+                    გარანტია
+                </label>
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="rentPay" ng-disabled="blockControl" ng-change="ValidateCheckBoxes4()" />
+                    იჯარა
+                </label>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="btn btn-sm btn-primary" style="width: 80px;" ng-click="Search()"><i class="fa fa-save"></i> OK</a>
+            <a class="btn btn-sm btn-default" style="width: 80px;" ng-click="Cancel()"><i class="fa fa-close"></i> დახურვა</a>
+        </div>
+    </script>
+    <!--Search In Visit Modal End-->
+</div>
+<!--Layout End-->
